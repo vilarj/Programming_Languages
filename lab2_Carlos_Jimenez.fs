@@ -26,8 +26,8 @@ let m1 = [[1;2;3];[4;5;6]]
 let m2 = [[7;8;9];[1;2;3]]
 
 let rec matadd m1 m2 =
-    for i in m1 do
-        for k in m2 do
-            printfn "%A + %A = %A" (i) (k) (vecadd i k)
+    match m1, m2 with
+    | [], [] -> []
+    | m1::matrix1, m2::matrix2 -> (vecadd m1 m2) :: (matadd matrix1 matrix2)
             
-printfn "%A" (matadd m1 m2)
+printfn "Problem 4\nM1 = %A\nM2 = %A\n\nM1 + M2 = %A" m1 m2 (matadd m1 m2)
