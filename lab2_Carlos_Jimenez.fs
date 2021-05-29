@@ -22,11 +22,12 @@ let rec vecadd a b =
 printfn "\nProblem 3\n%A(i) + %A(k) = %A(i+k)" [1;2;3] [4;5;6] (vecadd [1;2;3] [4;5;6])
 
 // Problem 4
-let m1 = [[1;4],[2;5],[3;6]]
-let m2 = [[7;8;9],[1;2;3]]
+let m1 = [[1;2;3];[4;5;6]]
+let m2 = [[7;8;9];[1;2;3]]
 
-let rec matadd a b =
-    match a, b with
-    | [], [] -> []
-    | a::atail, b::btail -> (a*b) :: vecadd atail btail
-    | _ ->
+let rec matadd m1 m2 =
+    for i in m1 do
+        for k in m2 do
+            printfn "%A + %A = %A" (i) (k) (vecadd i k)
+            
+printfn "%A" (matadd m1 m2)
