@@ -1,17 +1,23 @@
+open System.Numerics // need to use bigint
+
 // Problem 1
 let cubes = List.map (fun i -> i * i * i) [1;2;3]
 printfn "Problem 1\n%A^3 = %A" [1;2;3] cubes
 
 // Problem 2
-let f n =
-    match n with
-    | _ when n <= 1. -> 1.
-    | _ -> [1. ..n] |> Seq.reduce (*)
+let rec factorial (number : int) =
+    match number with
+    | 0 | 1 -> bigint.One
+    | _ -> (bigint number) * factorial (number - 1)
 
-let (!) = f
-let nf n k = !n / (!k * !(n - k))
+let c (n : int) (k : int) = 
+    let result = 
+        if n = 0 then bigint.Zero
+        else (factorial n) / ((factorial k * factorial(n - k)))
+    printfn "%A" result
 
-printfn "\nProblem 2\nC(10, 5) = %A"  <| ``nf`` 10. 5.
+printfn "\nProblem 2"
+c 10 5
 
 // Problem 3
 let rec vecadd a b =
