@@ -7,4 +7,5 @@ let rec findLast list =
 
 printfn "Problem 1\n%A -> Last element is %A"[15; 9; 18; 25; 50] (findLast [15; 9; 18; 25; 50])
 
-
+// Problem 2
+let mylist = [11..50]
