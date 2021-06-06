@@ -8,3 +8,7 @@ printfn "Problem 1\nWe will reverse the list %A and get the head of the new reve
 
 // Problem 2
 let mylist = [11..50]
+
+let isMultiple = List.map (fun element -> element % 10 = 0) mylist
+
+printfn "\nProblem 2\nGiven this list {\n%A\n}\nLet us determine if each element in the list is multiple of 10 or not:\n%A" mylist isMultiple
