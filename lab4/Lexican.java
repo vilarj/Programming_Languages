@@ -1,23 +1,27 @@
 import java.io.FileNotFoundException;
 import Java.io.File;
-
-public class charClass {
-
-}
+import java.util.Scanner;
 
 public class Lexan {
+    public Scanner reader;
     private int nextToken = 0;
     private static int charClass, lexLen;
     private static char[] lexeme = new char[100];
     private static char nextChar;
-    private static java.io.File in_fp;
+    private static File in_fp = new File("front.txt");
 
     public static void addChar() {
 
-    }
+    }   
 
     public static void getChar() {
-
+        int i = 0;
+        reader = new Scanner(in_fp);
+        
+        while (reader.hasNext()) {
+            nextChar += reader.next().charAt(i);
+            i++;
+        }
     }
 
     public static void getNonBlank() {
@@ -29,9 +33,7 @@ public class Lexan {
     }
 
     public static void main(String[] args) {
-        
         try {
-            in_fp = new File("C:/Users/Vj/Google Drive/College/3 - Junior/Summer of 2021/Programming Languages/Labs/Lab 4/front.txt");
             getChar();
 
             do {
