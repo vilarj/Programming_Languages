@@ -23,8 +23,7 @@ public class parser {
     static final int DIV_OP = 24;
     static final int LEFT_PAREN = 25;
     static final int RIGHT_PAREN = 26;
-    static final int SEMI_COL = 59;
-    static final int END_OF_FILE = 98;
+    static final int END_OF_FILE = 59;
 
     public static void read_file(FileReader file) {
         reader = new BufferedReader(file);
@@ -50,7 +49,6 @@ public class parser {
             if (nextToken == DIV_OP) {nextToken = '/'; System.out.printf("\t\t%c", token_dict[nextToken]);}
             if (nextToken == MULT_OP) {nextToken = '*'; System.out.printf("\t\t%c", token_dict[nextToken]);}
             if (nextToken == INT_LIT) {nextToken = '='; System.out.printf("\t\t%c", token_dict[nextToken]);}
-            if (nextToken == SEMI_COL) {nextToken = ';'; System.out.printf("\t\t%c", token_dict[nextToken]);}
         }
     }
 
@@ -98,12 +96,6 @@ public class parser {
                 System.out.printf("\t->\t\n");
                 break;
 
-            case ';':
-                addChar();;
-                nextToken = SEMI_COL;
-                System.out.printf("\t<Expr>\t\n");
-                break;
-
             default:
                 lexeme[0] = 'E';
                 lexeme[1] = 'O';
@@ -128,8 +120,10 @@ public class parser {
         char c = 0;
 
         try {c = (char)reader.read();
+            if (c == ';') {System.out.printf("\n\n\t************\n\tEND OF FILE\n\t************\n");System.exit(0);}
             System.out.printf("\tThe character is: %c\t", c);
-            System.out.printf("\n");}
+            System.out.printf("\n");
+        }
         catch (IOException e) {e.printStackTrace();}
 
         nextChar = c;
