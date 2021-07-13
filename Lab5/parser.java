@@ -23,6 +23,7 @@ public class parser {
     static final int DIV_OP = 24;
     static final int LEFT_PAREN = 25;
     static final int RIGHT_PAREN = 26;
+    static final int SEMI_COL = 59;
     static final int END_OF_FILE = 98;
 
     public static void read_file(FileReader file) {
@@ -49,6 +50,7 @@ public class parser {
             if (nextToken == DIV_OP) {nextToken = '/'; System.out.printf("\t\t%c", token_dict[nextToken]);}
             if (nextToken == MULT_OP) {nextToken = '*'; System.out.printf("\t\t%c", token_dict[nextToken]);}
             if (nextToken == INT_LIT) {nextToken = '='; System.out.printf("\t\t%c", token_dict[nextToken]);}
+            if (nextToken == SEMI_COL) {nextToken = ';'; System.out.printf("\t\t%c", token_dict[nextToken]);}
         }
     }
 
@@ -96,6 +98,12 @@ public class parser {
                 System.out.printf("\t->\t\n");
                 break;
 
+            case ';':
+                addChar();;
+                nextToken = SEMI_COL;
+                System.out.printf("\t<Expr>\t\n");
+                break;
+
             default:
                 lexeme[0] = 'E';
                 lexeme[1] = 'O';
@@ -119,7 +127,9 @@ public class parser {
     public static void getChar(){
         char c = 0;
 
-        try {c = (char)reader.read();}
+        try {c = (char)reader.read();
+            System.out.printf("\tThe character is: %c\t", c);
+            System.out.printf("\n");}
         catch (IOException e) {e.printStackTrace();}
 
         nextChar = c;
@@ -186,7 +196,7 @@ public class parser {
             String s = new String(lexeme);
             s = s.substring(0,lexLen);
 
-            System.out.printf("\t\t%s\n", token_dict[nextToken], s);} // This is the line
+            System.out.printf("\t\t%s\n", token_dict[nextToken], s);}
         return nextToken;
     }
 
