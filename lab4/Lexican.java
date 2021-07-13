@@ -117,14 +117,13 @@ public class Lexican {
 
     /*get the next char of an input and determine its character class*/
     static void getChar(){
-
         char c = 0;
-        try {
-            c = (char)reader.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        try {c = (char)reader.read();} 
+        catch (IOException e) {e.printStackTrace();}
+        
         nextChar = c;
+        
         if((int)nextChar != 0){
             if(isalpha(nextChar)){
                 charClass = LETTER;
@@ -225,8 +224,7 @@ public class Lexican {
 
     //Assign Function
     // <assign> -> id = <expr>
-    static void assign() throws IOException
-    {
+    static void assign() throws IOException {
         if (nextToken == IDENT)
             lex();
 
