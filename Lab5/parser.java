@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class Parser {
+public class parser {
     static final int MAX_LEXEME_LENGTH = 100;
     static final int MAX_TOKEN_LENGTH = 100;
     static int charClass;
@@ -48,41 +48,47 @@ public class Parser {
     }
 
     static int lookup(char ch){
-
         switch (ch) {
             case '(':
                 addChar();
                 nextToken = LEFT_PAREN;
+                System.out.printf("<Expr>\n");
                 break;
 
             case ')':
                 addChar();
                 nextToken = RIGHT_PAREN;
+                System.out.printf("<Expr>\n");
                 break;
 
             case '+':
                 addChar();
                 nextToken = ADD_OP;
+                System.out.printf("<Term>\n");
                 break;
 
             case '-':
                 addChar();
                 nextToken = SUB_OP;
+                System.out.printf("<Term>\n");
                 break;
 
             case '*':
                 addChar();
                 nextToken = MULT_OP;
+                System.out.printf("<Factor>\n");
                 break;
 
             case '/':
                 addChar();
                 nextToken = DIV_OP;
+                System.out.printf("<Factor>\n");
                 break;
 
             case '=':
                 addChar();
                 nextToken = ASSIGN_OP;
+                System.out.printf("->\n");
                 break;
 
             default:
@@ -179,28 +185,25 @@ public class Parser {
         return nextToken;
     }
 
-    static boolean isalpha(char c){
-
+    static boolean isalpha(char c) {
         int ascii = (int) c;
-        if((ascii > 64 && ascii < 91) || (ascii > 96 && ascii < 123)){
-            return true;
-        }else {return false;}
+
+        if((ascii > 64 && ascii < 91) || (ascii > 96 && ascii < 123)) {return true;}
+        else {return false;}
     }
 
-    static boolean isdigit(char c){
-
+    static boolean isdigit(char c) {
         int ascii = (int) c;
-        if(ascii > 47 && ascii < 58){
-            return true;
-        }else {return false;}
+
+        if(ascii > 47 && ascii < 58){return true;}
+        else {return false;}
     }
 
-    static boolean isspace(char c){
-
+    static boolean isspace(char c) {
         int ascii = (int) c;
-        if(ascii == 32){
-            return true;
-        }else {return false;}
+
+        if(ascii == 32){return true;}
+        else {return false;}
     }
 
     // <assign> -> id = <expr>
@@ -208,9 +211,9 @@ public class Parser {
         if (nextToken == IDENT)
             lex();
 
-        if(nextToken == ASSIGN_OP);
-        {
+        if(nextToken == ASSIGN_OP) {
             lex();
+            System.out.printf("<Expr>\n");
             expr();
         }
     }
@@ -220,10 +223,12 @@ public class Parser {
      */
     static void expr() throws IOException {
         term();
+        System.out.printf("<Term>\n");
 	/* As long as the next token is + or -, get
 	 the next token and parse the next term */
         while (nextToken == ADD_OP || nextToken == SUB_OP) {
             lex();
+            System.out.printf("<Term>\n");
             term();
         }
     }
@@ -237,27 +242,26 @@ public class Parser {
         while (nextToken == MULT_OP || nextToken == DIV_OP) {
             lex();
             factor();
+            System.out.printf("<Factor>");
         }
     }
 
     static void factor() throws IOException {
-        if (nextToken == IDENT || nextToken == INT_LIT) {lex();}
+        if (nextToken == IDENT || nextToken == INT_LIT) {System.out.printf("<Factor>\n");lex();}
 	/* If the RHS is ( <expr>), call lex to pass over the
 	 left parenthesis, call expr, and check for the right
 	 parenthesis */
         else {
+            System.out.printf("\n");
             if (nextToken == LEFT_PAREN) {
                 lex();
+                System.out.printf("<Expr>\n");
                 expr();
 
-                if (nextToken == RIGHT_PAREN)
-                    lex();
-                else
-                    System.out.println("ERROR: Does not have RIGHT_PAREN");
+                if (nextToken == RIGHT_PAREN) {lex();}
+                else {System.out.println("ERROR: Does not have RIGHT_PAREN");}
             }
-            else {
-                System.exit(0);
-            }
+            else {System.exit(0);}
         }
     }
 
